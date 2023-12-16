@@ -45,7 +45,7 @@ class ChessBoard {
                 // for every column, the id is labelled in ascending order from a to h
                 chessSquareID[0] = columnIDs[columnCount];
                 chessSquare.setAttribute("id", `${chessSquareID[0]}${chessSquareID[1]}`); // id is set to letternumber (ex. a1)
-                // chessSquare.innerText = `${chessSquareID[0]}${chessSquareID[1]}`; // call
+                chessSquare.innerText = `${chessSquareID[0]}${chessSquareID[1]}`; // call
 
                 gameBoardDiv.appendChild(chessSquare);
                 columnCount++;
