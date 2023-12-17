@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 #game-board {
     /* FOR THE POSITION OF THE BOARD ITSELF ON THE PAGE */
     position: absolute;
