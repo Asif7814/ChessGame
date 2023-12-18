@@ -1,4 +1,5 @@
-// import { colors } from "./script.js";
+// IMPORTS
+import { colors } from "./script.js"; // will import colors from another folder
 
 class ChessSquare { 
     constructor(e, columnID, rowID, colors = ["white", "black"], isOccupied = false) { // e = element from gameboard array
@@ -12,11 +13,13 @@ class ChessSquare {
 
     createSquareDiv() { 
         const chessSquareDiv = document.createElement("div");
-        chessSquareDiv.setAttribute("class", "square");
+        chessSquareDiv.setAttribute("class", "squares");
         chessSquareDiv.setAttribute("class", this.colorClass);
-        chessSquareDiv.setAttribute("square-id", `${this.columnID}${this.rowID}`);
+        chessSquareDiv.setAttribute("square-id", `${this.columnID}${this.rowID}`); // sets a position id for each square (a1)
         chessSquareDiv.style.backgroundColor = this.color;
         gameBoardDiv.appendChild(chessSquareDiv);
+
+        // PROBLEM: THIS DOESN'T SEEM TO GET ADDED TO THE NODELIST MEANING I CAN'T ACCESS THE DATA AFTERWARDS (EX. FOR RETRIEVING POSITIONS, IF IT'S OCCUPIED, ETC.)
     }
 }
 
@@ -41,21 +44,14 @@ function startGame() {
             chessSquareObj.createSquareDiv();
         }
     }
+
+    let chessSquares = document.querySelectorAll(".squares");
+
+    console.log(chessSquares);
 }
 
-// let colors = ["#eff4f9", "#acc4e3"]; // blue and light blue
-let colors = ["#769656", "#eeeed2"]; // green and yellow
 let gameBoardDiv = document.querySelector("#game-board");
 
 startGame();
 
-console.log(gameBoardDiv); // nodelist does print to the console
-
-// gameBoardDiv = document.querySelector("#game-board"); // this updates the nodelist (I think)
-
-
 // A CLASS FOR CHESSBOARD MAY STILL BE NEEDED LATER
-// export function gameStart() {
-//     const newChessBoard = new ChessBoard(colors);
-//     newChessBoard.createBoard();
-// }
