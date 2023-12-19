@@ -1,5 +1,8 @@
 body {
-    background-color: black;
+    background-color: rgb(60, 60, 60);
+    padding: 0;
+    border: 0;
+    margin: 0;
 }
 
 #game-board {
@@ -15,13 +18,11 @@ body {
     display: grid;
     grid-template-rows: repeat(8, minmax(1rem, 4rem)); /*may have to use clamp(low, mid, max) instead of minmax to make it responsive*/
     grid-template-columns: repeat(8, minmax(1rem, 4rem));
-
-    border: 1.5px solid black;
 }
 
-.squares { /*this doesn't seem to do much*/
+.squares {
     width: 100%;
     height: 100%;
 
-    border: 1.5px solid black;
+    border: 0.05rem solid black;
 }

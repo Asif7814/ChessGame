@@ -1,11 +1,10 @@
 // IMPORTS
-import { colors } from "./script.js"; // will import colors from another folder
+import { colors } from "./script.js"; // will import colors from another file
 
 class ChessSquare { 
-    constructor(e, columnID, rowID, colors = ["white", "black"], isOccupied = false) { // e = element from gameboard array
+    constructor(e, columnID, rowID, colors = ["white", "black"], isOccupied = false) { // e = element from gameboard array, isOccupied has no use case for now, will be used later
         this.columnID = columnID;
         this.rowID = rowID;
-        this.isOccupied = isOccupied;
 
         this.colorClass = e === 0 ? "light" : "dark";
         this.color = this.colorClass == "light" ? colors[0] : colors[1];
@@ -13,17 +12,14 @@ class ChessSquare {
 
     createSquareDiv() { 
         const chessSquareDiv = document.createElement("div");
-        chessSquareDiv.setAttribute("class", "squares");
-        chessSquareDiv.setAttribute("class", this.colorClass);
+        chessSquareDiv.setAttribute("class", `squares ${this.colorClass}`); // sets class of "squares" and "light" or "dark"
         chessSquareDiv.setAttribute("square-id", `${this.columnID}${this.rowID}`); // sets a position id for each square (a1)
         chessSquareDiv.style.backgroundColor = this.color;
         gameBoardDiv.appendChild(chessSquareDiv);
-
-        // PROBLEM: THIS DOESN'T SEEM TO GET ADDED TO THE NODELIST MEANING I CAN'T ACCESS THE DATA AFTERWARDS (EX. FOR RETRIEVING POSITIONS, IF IT'S OCCUPIED, ETC.)
     }
 }
 
-function startGame() { 
+function createChessboard() { 
     const gameBoard = [
         [0, 1, 0, 1, 0, 1, 0, 1],
         [1, 0, 1, 0, 1, 0, 1, 0],
@@ -40,18 +36,28 @@ function startGame() {
 
     for (let i = 0; i < gameBoard.length; i++) { // for every row of the gameboard 2d array and
         for (let j = 0; j < gameBoard[i].length; j++) { // for every square of every row, create a new chessSquare object
-            let chessSquareObj = new ChessSquare(gameBoard[i][j], columnIDs[j], rowIDs[i], colors); // pass in: current element/square, columnID, rowID
+            const chessSquareObj = new ChessSquare(gameBoard[i][j], columnIDs[j], rowIDs[i], colors); // pass in: current element/square, columnID, rowID
             chessSquareObj.createSquareDiv();
         }
     }
-
-    let chessSquares = document.querySelectorAll(".squares");
-
-    console.log(chessSquares);
 }
 
 let gameBoardDiv = document.querySelector("#game-board");
 
-startGame();
+createChessboard();
+
+let selectedSquareID;
+
+function retrieveID(e) { 
+    if (e.target.matches(".squares")) {
+        let square = e.target;
+        selectedSquareID = square.getAttribute("square-id"); // can i return this and capture it into a variable to use later?
+        console.log(selectedSquareID);
+    }
+}
+
+gameBoardDiv.addEventListener("click", retrieveID);
+
+// console.log(selectedSquareID);
 
 // A CLASS FOR CHESSBOARD MAY STILL BE NEEDED LATER
